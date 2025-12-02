@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>App Developer</title>
+    <title>LuMi Development Studios</title>
     <style>
         * {
             margin: 0;
@@ -12,165 +12,407 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
+            background: #0f0f1e;
+            overflow-x: hidden;
         }
 
-        .container {
-            max-width: 800px;
-            margin: 50px auto;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
+        /* Animated Background */
+        .background {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            animation: gradientShift 15s ease infinite;
         }
 
-        .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 60px 40px;
-            text-align: center;
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
 
-        .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            font-weight: 700;
+        .background::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: moveBackground 20s linear infinite;
         }
 
-        .header p {
-            font-size: 1.2em;
-            opacity: 0.9;
+        @keyframes moveBackground {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
         }
 
-        .content {
-            padding: 40px;
+        /* Navigation */
+        nav {
+            background: rgba(15, 15, 30, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
         }
 
-        .section {
-            margin-bottom: 40px;
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .section h2 {
-            color: #667eea;
-            margin-bottom: 15px;
+        .logo {
             font-size: 1.8em;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 2px;
         }
 
-        .section p {
-            color: #666;
-            margin-bottom: 10px;
-            font-size: 1.1em;
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
         }
 
-        .app-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
         }
 
-        .app-card {
-            background: #f8f9fa;
-            padding: 30px;
-            border-radius: 15px;
-            text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            transition: width 0.3s ease;
         }
 
-        .app-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        .nav-links a:hover::after {
+            width: 100%;
         }
 
-        .app-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 20px;
-            margin: 0 auto 15px;
+        /* Hero Section */
+        .hero {
+            min-height: 90vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 4em;
+            color: white;
+            margin-bottom: 20px;
+            font-weight: 800;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            line-height: 1.2;
+        }
+
+        .hero .tagline {
+            font-size: 1.5em;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 18px 50px;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 100px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
             font-size: 2.5em;
+            color: white;
+            text-align: center;
+            margin-bottom: 60px;
+            font-weight: 700;
+        }
+
+        /* Apps Grid */
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .app-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 40px;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .app-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+        }
+
+        .app-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.4);
+        }
+
+        .app-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 25px;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3em;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
         }
 
         .app-card h3 {
+            font-size: 1.8em;
             color: #333;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
 
         .app-card p {
             color: #666;
-            font-size: 0.95em;
+            font-size: 1.1em;
+            line-height: 1.6;
         }
 
-        .contact {
-            background: #f8f9fa;
-            padding: 30px;
-            border-radius: 15px;
-            text-align: center;
-        }
-
-        .contact a {
-            color: #667eea;
-            text-decoration: none;
+        .badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin-top: 20px;
             font-weight: 600;
         }
 
-        .contact a:hover {
-            text-decoration: underline;
+        /* Coming Soon Card */
+        .coming-soon {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 2px dashed rgba(255, 255, 255, 0.3);
         }
 
-        .footer {
+        .coming-soon .app-icon {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .coming-soon h3,
+        .coming-soon p {
+            color: white;
+        }
+
+        /* About Section */
+        .about-content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 60px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .about-content p {
+            font-size: 1.2em;
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        /* Contact Section */
+        .contact-box {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 60px;
             text-align: center;
-            padding: 30px;
-            color: #999;
-            font-size: 0.9em;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .contact-box h3 {
+            font-size: 2em;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .contact-box p {
+            font-size: 1.2em;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .contact-box a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.3em;
+            transition: all 0.3s ease;
+        }
+
+        .contact-box a:hover {
+            color: #764ba2;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(15, 15, 30, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 40px 20px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5em;
+            }
+
+            .hero .tagline {
+                font-size: 1.2em;
+            }
+
+            .apps-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-content,
+            .contact-box {
+                padding: 40px 30px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>📱 App Developer</h1>
-            <p>Building Quality Mobile Experiences</p>
-        </div>
+    <div class="background"></div>
 
-        <div class="content">
-            <div class="section">
-                <h2>About</h2>
-                <p>Welcome to my developer page. I create mobile applications focused on user experience and quality.</p>
+    <nav>
+        <div class="container">
+            <div class="logo">LuMi Studios</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#apps">Apps</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>LuMi Development Studios</h1>
+            <p class="tagline">Crafting Beautiful Mobile Experiences</p>
+            <a href="#apps" class="cta-button">Explore Our Apps</a>
+        </div>
+    </section>
+
+    <section id="apps">
+        <h2 class="section-title">Our Apps</h2>
+        <div class="apps-grid">
+            <div class="app-card">
+                <div class="app-icon">💰</div>
+                <h3>Expense Managerly</h3>
+                <p>Take control of your finances with our intuitive expense tracking app. Monitor spending, set budgets, and achieve your financial goals with ease.</p>
+                <span class="badge">Available Now</span>
             </div>
 
-            <div class="section">
-                <h2>My Apps</h2>
-                <div class="app-grid">
-                    <div class="app-card">
-                        <div class="app-icon">🚀</div>
-                        <h3>Your App Name</h3>
-                        <p>Add your app description here</p>
-                    </div>
-                    <!-- Add more app cards as needed -->
-                </div>
-            </div>
-
-            <div class="section">
-                <div class="contact">
-                    <h2>Contact</h2>
-                    <p>For inquiries, please reach out at:</p>
-                    <p><a href="mailto:your-email@example.com">your-email@example.com</a></p>
-                </div>
+            <div class="app-card coming-soon">
+                <div class="app-icon">✨</div>
+                <h3>More Apps Coming Soon</h3>
+                <p>We're working on exciting new projects that will enhance your mobile experience. Stay tuned for updates!</p>
+                <span class="badge">In Development</span>
             </div>
         </div>
+    </section>
 
-        <div class="footer">
-            <p>&copy; 2024 App Developer. All rights reserved.</p>
+    <section id="about">
+        <h2 class="section-title">About Us</h2>
+        <div class="about-content">
+            <p>At LuMi Development Studios, we believe in creating mobile applications that make a difference in people's daily lives. Our focus is on delivering exceptional user experiences through thoughtful design and robust functionality.</p>
+            <p>We're committed to building apps that are not only powerful but also intuitive and enjoyable to use. Every project we undertake is crafted with attention to detail and a passion for excellence.</p>
         </div>
-    </div>
+    </section>
+
+    <section id="contact">
+        <h2 class="section-title">Get In Touch</h2>
+        <div class="contact-box">
+            <h3>Let's Connect</h3>
+            <p>Have questions or feedback? We'd love to hear from you!</p>
+            <a href="mailto:contact@lumistudios.com">contact@lumistudios.com</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 LuMi Development Studios. All rights reserved.</p>
+    </footer>
 </body>
 </html>
